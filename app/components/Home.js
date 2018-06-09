@@ -16,9 +16,19 @@ export default class Home extends Component<Props> {
     const { setVideoId, videoId } = this.props;
     console.log(this.props);
     return (
-      <div style={{ minHeight: 400 }}>
+      <div style={{ minHeight: 300 }}>
         <WebView setVideoId={setVideoId} />
-        {videoId}
+        {videoId && (
+          <iframe
+            title="movie"
+            width="560"
+            height="315"
+            src={`https://www.youtube.com/embed/${videoId}`}
+            frameBorder="0"
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+          />
+        )}
         <div className={styles.container} data-tid="container">
           {/* <h2>Home</h2> */}
           <Link to="/counter">to Counter</Link>
