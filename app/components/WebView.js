@@ -1,10 +1,10 @@
 import React from 'react';
 
-class WebView extends React.Component {
-  state = {
-    currentVideoId: null
-  };
+type Props = {
+  setVideoId: () => void
+};
 
+class WebView extends React.Component<Props> {
   componentDidMount() {
     this.webview.addEventListener('will-navigate', event => {
       console.log(event.url);
@@ -13,7 +13,7 @@ class WebView extends React.Component {
       const url = new URL(this.webview.getURL());
       const currentVideoId = url.searchParams.get('v');
       if (currentVideoId && this.webview.canGoBack()) {
-        this.setState({ currentVideoId });
+        this.props.setVideoId(currentVideoId);
         this.webview.goBack();
       }
     });
@@ -22,7 +22,6 @@ class WebView extends React.Component {
   render() {
     return (
       <React.Fragment>
-        {this.state.currentVideoId}
         <webview
           ref={webview => {
             if (webview) this.webview = webview;
